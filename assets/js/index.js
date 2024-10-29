@@ -151,12 +151,13 @@ class DoubleLinkedList {
     return deletedNode;
   }
 
+  // вставка значення у початку списку
   unshift(data) {
     // 1. Створити новий вузол у списку
     const newNode = new LinkedListNote(data);
     
     // 2.1 якщо список був пустий, то встановити значення head і tail на той вузол який ми створили
-    if(this.length === 0) {
+    if(!this.length) {
       this.head = newNode;
       this.tail = newNode;
     } else {
@@ -173,9 +174,10 @@ class DoubleLinkedList {
     return this.length;
   }
 
+  // видалення першого вузла зі списку
   shift() {
     // 1. Якщо список пустий, то повертаємо undefined
-    if(this.length === 0) {
+    if(!this.length) {
       return undefined;
     }
 
@@ -196,6 +198,54 @@ class DoubleLinkedList {
     this.length--;
 
     return this.length;
+  }
+
+  // пошук вузла у списку
+  find(data) {
+    // СПОСІБ ЧЕРЕЗ РЕКУРСІЮ -----------------
+    // // 1. перевіряємо чи пустий наш список
+    // if(!this.length) {
+    //   return undefined;
+    // }
+    
+    // function recursionSearch(node) {
+    //   // 2.1 якщо жодного вузла не знайдено, то вертаємо null
+    //   if(!node) {
+    //     return null;
+    //   }
+    //   // 2.2 Наш базовий випадок рекурсії, коли ми знайшли потрібний вузел
+    //   if(node.data === data) {
+    //     return node;
+    //   }
+
+    //   return recursionSearch(node.next);
+    // }
+    
+    
+    // // 2.3 Вертаємо результат виконання нашої рекурсивної функції
+    // return recursionSearch(this.head)
+    
+    // СПОСІБ ЧЕРЕЗ ЦИКЛ -----------------
+    // 1. перевіряємо чи пустий наш список
+    if(!this.length) {
+      return undefined;
+    }
+
+    // 2. Зберігаємо в змінну наш початок списка
+    let currentNode = this.head;
+
+    // 3. Поки у нас є вузли, перебираємо кожен вузол
+    while(currentNode) {
+      if(currentNode.data === data) {
+        // 3.1 Якщо це той вузол, який потрібен і данні вірні, то вертаємо його
+        return currentNode;
+      }
+      // 3.2 При кожному крокові переписуєм наш вузол на наступний (next)
+      currentNode = currentNode.next;
+    }
+
+    // 4. якщо нічого не знайдено, то вертаємо null
+    return null;
   }
 }
 
