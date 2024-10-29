@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class LinkedListNote {
   #next;
@@ -78,7 +78,7 @@ class DoubleLinkedList {
   // вставка значення у кінець списку
   push(data) {
     /* 
-      1. Створити новий вузло списку
+      1. Створити новий вузол списку
       2. вставити вузол у список
         2.1 якщо список пустий, то зробити вузол і головою і хвостом списку
         2.2 якщо список не пустий, то 
@@ -149,6 +149,30 @@ class DoubleLinkedList {
     // 4. повертаємо вузол який видалили
     return deletedNode;
   }
+
+  unshift(data) {
+    // 1. Створити новий вузол у списку
+    const newNode = new LinkedListNote(data);
+    
+    // 2.1 якщо список був пустий, то встановити значення head і tail на той вузол який ми створили
+    if(this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+    } else {
+      // 2.2 якщо список не пустий то взяти вузол head і задати йому значення prev на новий вузол
+      this.head.prev = newNode;
+      // 2.3 вже нашому новому вузлу задати значення next на наший старий вузол head
+      newNode.next = this.head;
+      // 2.4 віддати значення head нашому новому вузлу
+      this.head = newNode;
+    }
+    // 3. Збільшити довжину списка
+    this.length++;
+    // 4. повернути довжину списка
+    return this.length;
+  }
+
+  shift() {}
 }
 
 const list1 = new DoubleLinkedList();
@@ -156,5 +180,7 @@ const list1 = new DoubleLinkedList();
 list1.push("first");
 list1.push("second");
 list1.push("third");
+
+list1.unshift('unshift');
 
 console.log(list1);
