@@ -137,6 +137,7 @@ class DoubleLinkedList {
     if (this.length === 1) {
       //2.3.1 якщо не існує head і tail встановлюємо в null
       this.head = null;
+      this.tail = null;
     } else {
       //2.3.2 якщо існує, передостанньому елементу змінюємо next на null
       deletedNode.prev.next = null;
@@ -172,7 +173,30 @@ class DoubleLinkedList {
     return this.length;
   }
 
-  shift() {}
+  shift() {
+    // 1. Якщо список пустий, то повертаємо undefined
+    if(this.length === 0) {
+      return undefined;
+    }
+
+    // 2.1 Зберігаємо наш вузол в окрему змінну
+    const deletedNode = this.head;
+    // 2.2 Перевіряємо чи існує наступний вузол (довжина не дорівнює 1) 
+    if(this.length === 1) {
+      // 2.2.1 Якщо довжина дорівнює 1, то встановити head та tail в null
+      this.head = null;
+      this.tail = null;
+    } else {
+      // 2.2.2 Якщо довжина більше ніж 1, то віддати наш head наступному вузлу 
+      this.head = deletedNode.next;
+      // 2.2.3 Видалити в наступного вузла значення prev
+      deletedNode.next.prev = null;
+    }
+
+    this.length--;
+
+    return this.length;
+  }
 }
 
 const list1 = new DoubleLinkedList();
