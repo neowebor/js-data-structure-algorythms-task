@@ -381,6 +381,10 @@ class MyArray {
     // вертаємо наш новий масив
     return newArr;
   }
+
+  [Symbol.iterator]() {
+    return new MyArrayIterator(this)
+  }
 }
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
@@ -393,3 +397,28 @@ const arr1 = new MyArray(1, 2, 3, 4, 5);
 
 
 console.log(arr1);
+
+class MyArrayIterator {
+  constructor(arr) {
+    this.arr = arr;
+    this.i = 0;
+  }
+
+  next() {
+    if(this.i < this.arr.length) {
+      return {
+        done: false,
+        value: this.arr.data[this.i++]
+      };
+    } else {
+      return {
+        done: true,
+        value: undefined
+      }
+    }
+  }
+}
+
+for(const elem of arr1) {
+  console.log(elem);
+}
